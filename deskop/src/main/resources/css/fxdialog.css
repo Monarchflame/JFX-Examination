@@ -1,0 +1,19 @@
+.jfx-decorator .jfx-decorator-content-container {
+    -fx-border-color: steelblue;
+    -fx-border-width: 0 3px 3px 3px;
+    /*-fx-border-radius: 0px 3px 3px 0px;*/
+    /*-fx-background-radius: 0px 3px 3px 0px;*/
+}
+
+.jfx-decorator .jfx-decorator-buttons-container,.jfx-decorator-title-container {
+    -fx-background-color: steelblue;
+}
+
+.jfx-dialog-layout .jfx-layout-heading .label {
+    -fx-font-size: 28px;
+    -fx-font-weight: 600;
+}
+
+.jfx-dialog-layout .jfx-layout-body .label {
+    -fx-font-size: 20px;
+}
