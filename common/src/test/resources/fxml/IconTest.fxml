@@ -6,8 +6,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<?import ldh.fx.form.FormPane?>
-<?import ldh.fx.form.Row?>
+<?import fx.form.FormPane?>
+<?import fx.form.Row?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon?>
 <VBox xmlns="http://javafx.com/javafx"

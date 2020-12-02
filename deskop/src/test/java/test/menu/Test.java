@@ -1,14 +1,12 @@
 package test.menu;
 
-import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
-import de.jensd.fx.glyphs.materialicons.MaterialIconView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import ldh.fx.util.DialogUtil;
+import fx.util.DialogUtil;
 
 /**
  * Created by ldh on 2018/1/15.

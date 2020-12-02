@@ -9,7 +9,7 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
-<fx:root type="ldh.fx.component.LxWindow" xmlns="http://javafx.com/javafx"
+<fx:root type="fx.component.LxWindow" xmlns="http://javafx.com/javafx"
          xmlns:fx="http://javafx.com/fxml">
     <HBox fx:id="headPane" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" prefHeight="30" styleClass="lx-head-pane" mouseTransparent="false">
         <children>
