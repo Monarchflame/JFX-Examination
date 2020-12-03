@@ -4,6 +4,8 @@
   <resultMap id="BaseResultMap" type="com.desktop.entity.Student">
     <constructor>
       <idArg column="id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="student_no" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="password" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="name" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="college" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="major" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -71,7 +73,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, college, major, mobile, gmt_create, gmt_modified
+    id, student_no, password, name, college, major, mobile, gmt_create, gmt_modified
   </sql>
   <select id="selectByExample" parameterType="com.desktop.entity.StudentExample" resultMap="BaseResultMap">
     select
@@ -104,18 +106,26 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.desktop.entity.Student">
-    insert into student (id, name, college, 
-      major, mobile, gmt_create, 
-      gmt_modified)
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{college,jdbcType=VARCHAR}, 
-      #{major,jdbcType=VARCHAR}, #{mobile,jdbcType=CHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, 
-      #{gmtModified,jdbcType=TIMESTAMP})
+    insert into student (id, student_no, password, 
+      name, college, major, 
+      mobile, gmt_create, gmt_modified
+      )
+    values (#{id,jdbcType=BIGINT}, #{studentNo,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{college,jdbcType=VARCHAR}, #{major,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=CHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.desktop.entity.Student">
     insert into student
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
+      </if>
+      <if test="studentNo != null">
+        student_no,
+      </if>
+      <if test="password != null">
+        password,
       </if>
       <if test="name != null">
         name,
@@ -139,6 +149,12 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=BIGINT},
+      </if>
+      <if test="studentNo != null">
+        #{studentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
@@ -172,6 +188,12 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
       </if>
+      <if test="record.studentNo != null">
+        student_no = #{record.studentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null">
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
       <if test="record.name != null">
         name = #{record.name,jdbcType=VARCHAR},
       </if>
@@ -198,6 +220,8 @@
   <update id="updateByExample" parameterType="map">
     update student
     set id = #{record.id,jdbcType=BIGINT},
+      student_no = #{record.studentNo,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
       name = #{record.name,jdbcType=VARCHAR},
       college = #{record.college,jdbcType=VARCHAR},
       major = #{record.major,jdbcType=VARCHAR},
@@ -211,6 +235,12 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.desktop.entity.Student">
     update student
     <set>
+      <if test="studentNo != null">
+        student_no = #{studentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
@@ -234,7 +264,9 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.desktop.entity.Student">
     update student
-    set name = #{name,jdbcType=VARCHAR},
+    set student_no = #{studentNo,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
       college = #{college,jdbcType=VARCHAR},
       major = #{major,jdbcType=VARCHAR},
       mobile = #{mobile,jdbcType=CHAR},

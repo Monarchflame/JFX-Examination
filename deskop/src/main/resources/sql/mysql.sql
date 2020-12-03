@@ -1,6 +1,9 @@
-CREATE TABLE IF NOT EXISTS `teacher`
+DROP TABLE IF EXISTS `teacher`;
+CREATE TABLE `teacher`
 (
     `id`           BIGINT UNSIGNED AUTO_INCREMENT,
+    `teacher_no`   VARCHAR(20)  NOT NULL COMMENT '账号',
+    `password`     VARCHAR(20)  NOT NULL COMMENT '密码',
     `name`         VARCHAR(100) NOT NULL COMMENT '姓名',
     `college`      VARCHAR(40)  NOT NULL COMMENT '学院',
     `mobile`       CHAR(11)     NOT NULL COMMENT '手机',
@@ -11,7 +14,8 @@ CREATE TABLE IF NOT EXISTS `teacher`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='教师表';
 
-CREATE TABLE IF NOT EXISTS `exam`
+DROP TABLE IF EXISTS `exam`;
+CREATE TABLE `exam`
 (
     `id`                 BIGINT UNSIGNED AUTO_INCREMENT,
     `course_id`          BIGINT   NOT NULL COMMENT '课程ID',
@@ -24,7 +28,8 @@ CREATE TABLE IF NOT EXISTS `exam`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='考试表';
 
-CREATE TABLE IF NOT EXISTS `software_config`
+DROP TABLE IF EXISTS `software_config`;
+CREATE TABLE `software_config`
 (
     `id`           BIGINT UNSIGNED AUTO_INCREMENT,
     `teacher_id`   BIGINT       NOT NULL COMMENT '教师ID',
@@ -35,7 +40,8 @@ CREATE TABLE IF NOT EXISTS `software_config`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='软件白名单配置表';
 
-CREATE TABLE IF NOT EXISTS `select_software`
+DROP TABLE IF EXISTS `select_software`;
+CREATE TABLE `select_software`
 (
     `id`                 BIGINT UNSIGNED AUTO_INCREMENT,
     `software_config_id` BIGINT   NOT NULL COMMENT '软件白名单配置ID',
@@ -46,7 +52,8 @@ CREATE TABLE IF NOT EXISTS `select_software`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='软件配置表';
 
-CREATE TABLE IF NOT EXISTS `software`
+DROP TABLE IF EXISTS `software`;
+CREATE TABLE `software`
 (
     `id`           BIGINT UNSIGNED AUTO_INCREMENT,
     `name`         VARCHAR(100) NOT NULL COMMENT '软件名',
@@ -57,7 +64,8 @@ CREATE TABLE IF NOT EXISTS `software`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='软件表';
 
-CREATE TABLE IF NOT EXISTS `exam_arrangement`
+DROP TABLE IF EXISTS `exam_arrangement`;
+CREATE TABLE `exam_arrangement`
 (
     `id`           BIGINT UNSIGNED AUTO_INCREMENT,
     `exam_id`      BIGINT   NOT NULL COMMENT '考试ID',
@@ -68,9 +76,12 @@ CREATE TABLE IF NOT EXISTS `exam_arrangement`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='考试安排表';
 
-CREATE TABLE IF NOT EXISTS `student`
+DROP TABLE IF EXISTS `student`;
+CREATE TABLE `student`
 (
     `id`           BIGINT UNSIGNED AUTO_INCREMENT,
+    `student_no`   VARCHAR(20)  NOT NULL COMMENT '学号',
+    `password`     VARCHAR(20)  NOT NULL COMMENT '密码',
     `name`         VARCHAR(100) NOT NULL COMMENT '姓名',
     `college`      VARCHAR(40)  NOT NULL COMMENT '学院',
     `major`        VARCHAR(40)  NOT NULL COMMENT '专业',
@@ -81,7 +92,8 @@ CREATE TABLE IF NOT EXISTS `student`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='学生表';
 
-CREATE TABLE IF NOT EXISTS `course`
+DROP TABLE IF EXISTS `course`;
+CREATE TABLE `course`
 (
     `id`           BIGINT UNSIGNED AUTO_INCREMENT,
     `teacher_id`   BIGINT       NOT NULL COMMENT '教师ID',
@@ -92,7 +104,8 @@ CREATE TABLE IF NOT EXISTS `course`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='课程表';
 
-CREATE TABLE IF NOT EXISTS `select_course`
+DROP TABLE IF EXISTS `select_course`;
+CREATE TABLE `select_course`
 (
     `id`           BIGINT UNSIGNED AUTO_INCREMENT,
     `course_id`    BIGINT   NOT NULL COMMENT '教师ID',

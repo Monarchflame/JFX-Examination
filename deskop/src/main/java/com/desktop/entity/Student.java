@@ -5,6 +5,10 @@ import java.util.Date;
 public class Student {
     private Long id;
 
+    private String studentNo;
+
+    private String password;
+
     private String name;
 
     private String college;
@@ -17,8 +21,10 @@ public class Student {
 
     private Date gmtModified;
 
-    public Student(Long id, String name, String college, String major, String mobile, Date gmtCreate, Date gmtModified) {
+    public Student(Long id, String studentNo, String password, String name, String college, String major, String mobile, Date gmtCreate, Date gmtModified) {
         this.id = id;
+        this.studentNo = studentNo;
+        this.password = password;
         this.name = name;
         this.college = college;
         this.major = major;
@@ -37,6 +43,22 @@ public class Student {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getStudentNo() {
+        return studentNo;
+    }
+
+    public void setStudentNo(String studentNo) {
+        this.studentNo = studentNo == null ? null : studentNo.trim();
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
     }
 
     public String getName() {
