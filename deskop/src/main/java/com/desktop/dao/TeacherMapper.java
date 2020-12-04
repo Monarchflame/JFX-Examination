@@ -3,8 +3,13 @@ package com.desktop.dao;
 import com.desktop.entity.Teacher;
 import com.desktop.entity.TeacherExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
+
+@Mapper
+@Component
 public interface TeacherMapper {
     long countByExample(TeacherExample example);
 
