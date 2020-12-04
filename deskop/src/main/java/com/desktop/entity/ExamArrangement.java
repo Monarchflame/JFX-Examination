@@ -1,7 +1,5 @@
 package com.desktop.entity;
 
-import java.util.Date;
-
 public class ExamArrangement {
     private Long id;
 
@@ -9,16 +7,10 @@ public class ExamArrangement {
 
     private Long studentId;
 
-    private Date gmtCreate;
-
-    private Date gmtModified;
-
-    public ExamArrangement(Long id, Long examId, Long studentId, Date gmtCreate, Date gmtModified) {
+    public ExamArrangement(Long id, Long examId, Long studentId) {
         this.id = id;
         this.examId = examId;
         this.studentId = studentId;
-        this.gmtCreate = gmtCreate;
-        this.gmtModified = gmtModified;
     }
 
     public ExamArrangement() {
@@ -47,21 +39,5 @@ public class ExamArrangement {
 
     public void setStudentId(Long studentId) {
         this.studentId = studentId;
-    }
-
-    public Date getGmtCreate() {
-        return gmtCreate;
-    }
-
-    public void setGmtCreate(Date gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
-
-    public Date getGmtModified() {
-        return gmtModified;
-    }
-
-    public void setGmtModified(Date gmtModified) {
-        this.gmtModified = gmtModified;
     }
 }

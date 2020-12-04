@@ -13,18 +13,18 @@ public class Exam {
 
     private Date startTime;
 
-    private Date gmtCreate;
+    private Date endTime;
 
-    private Date gmtModified;
+    private Short examTime;
 
-    public Exam(Long id, Long courseId, Long teacherId, Long softwareConfigId, Date startTime, Date gmtCreate, Date gmtModified) {
+    public Exam(Long id, Long courseId, Long teacherId, Long softwareConfigId, Date startTime, Date endTime, Short examTime) {
         this.id = id;
         this.courseId = courseId;
         this.teacherId = teacherId;
         this.softwareConfigId = softwareConfigId;
         this.startTime = startTime;
-        this.gmtCreate = gmtCreate;
-        this.gmtModified = gmtModified;
+        this.endTime = endTime;
+        this.examTime = examTime;
     }
 
     public Exam() {
@@ -71,19 +71,19 @@ public class Exam {
         this.startTime = startTime;
     }
 
-    public Date getGmtCreate() {
-        return gmtCreate;
+    public Date getEndTime() {
+        return endTime;
     }
 
-    public void setGmtCreate(Date gmtCreate) {
-        this.gmtCreate = gmtCreate;
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
     }
 
-    public Date getGmtModified() {
-        return gmtModified;
+    public Short getExamTime() {
+        return examTime;
     }
 
-    public void setGmtModified(Date gmtModified) {
-        this.gmtModified = gmtModified;
+    public void setExamTime(Short examTime) {
+        this.examTime = examTime;
     }
 }

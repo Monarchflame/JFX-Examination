@@ -8,8 +8,8 @@
       <arg column="teacher_id" javaType="java.lang.Long" jdbcType="BIGINT" />
       <arg column="software_config_id" javaType="java.lang.Long" jdbcType="BIGINT" />
       <arg column="start_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-      <arg column="gmt_create" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-      <arg column="gmt_modified" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="end_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="exam_time" javaType="java.lang.Short" jdbcType="SMALLINT" />
     </constructor>
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -71,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, course_id, teacher_id, software_config_id, start_time, gmt_create, gmt_modified
+    id, course_id, teacher_id, software_config_id, start_time, end_time, exam_time
   </sql>
   <select id="selectByExample" parameterType="com.desktop.entity.ExamExample" resultMap="BaseResultMap">
     select
@@ -105,11 +105,11 @@
   </delete>
   <insert id="insert" parameterType="com.desktop.entity.Exam">
     insert into exam (id, course_id, teacher_id, 
-      software_config_id, start_time, gmt_create, 
-      gmt_modified)
+      software_config_id, start_time, end_time, 
+      exam_time)
     values (#{id,jdbcType=BIGINT}, #{courseId,jdbcType=BIGINT}, #{teacherId,jdbcType=BIGINT}, 
-      #{softwareConfigId,jdbcType=BIGINT}, #{startTime,jdbcType=TIMESTAMP}, #{gmtCreate,jdbcType=TIMESTAMP}, 
-      #{gmtModified,jdbcType=TIMESTAMP})
+      #{softwareConfigId,jdbcType=BIGINT}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{examTime,jdbcType=SMALLINT})
   </insert>
   <insert id="insertSelective" parameterType="com.desktop.entity.Exam">
     insert into exam
@@ -129,11 +129,11 @@
       <if test="startTime != null">
         start_time,
       </if>
-      <if test="gmtCreate != null">
-        gmt_create,
+      <if test="endTime != null">
+        end_time,
       </if>
-      <if test="gmtModified != null">
-        gmt_modified,
+      <if test="examTime != null">
+        exam_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -152,11 +152,11 @@
       <if test="startTime != null">
         #{startTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="gmtCreate != null">
-        #{gmtCreate,jdbcType=TIMESTAMP},
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="gmtModified != null">
-        #{gmtModified,jdbcType=TIMESTAMP},
+      <if test="examTime != null">
+        #{examTime,jdbcType=SMALLINT},
       </if>
     </trim>
   </insert>
@@ -184,11 +184,11 @@
       <if test="record.startTime != null">
         start_time = #{record.startTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.gmtCreate != null">
-        gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      <if test="record.endTime != null">
+        end_time = #{record.endTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.gmtModified != null">
-        gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      <if test="record.examTime != null">
+        exam_time = #{record.examTime,jdbcType=SMALLINT},
       </if>
     </set>
     <if test="_parameter != null">
@@ -202,8 +202,8 @@
       teacher_id = #{record.teacherId,jdbcType=BIGINT},
       software_config_id = #{record.softwareConfigId,jdbcType=BIGINT},
       start_time = #{record.startTime,jdbcType=TIMESTAMP},
-      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
-      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP}
+      end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      exam_time = #{record.examTime,jdbcType=SMALLINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -223,11 +223,11 @@
       <if test="startTime != null">
         start_time = #{startTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="gmtCreate != null">
-        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="gmtModified != null">
-        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      <if test="examTime != null">
+        exam_time = #{examTime,jdbcType=SMALLINT},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -238,8 +238,8 @@
       teacher_id = #{teacherId,jdbcType=BIGINT},
       software_config_id = #{softwareConfigId,jdbcType=BIGINT},
       start_time = #{startTime,jdbcType=TIMESTAMP},
-      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
-      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      exam_time = #{examTime,jdbcType=SMALLINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

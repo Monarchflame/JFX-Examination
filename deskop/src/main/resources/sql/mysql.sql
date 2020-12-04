@@ -22,6 +22,8 @@ CREATE TABLE `exam`
     `teacher_id`         BIGINT   NOT NULL COMMENT '教师ID',
     `software_config_id` BIGINT   NOT NULL COMMENT '软件白名单配置ID',
     `start_time`         datetime NOT NULL COMMENT '开始时间',
+    `end_time`           datetime NOT NULL COMMENT '结束时间',
+    `exam_time`          smallint NOT NULL COMMENT '考试时长',
     `gmt_create`         datetime NOT NULL DEFAULT current_timestamp,
     `gmt_modified`       datetime NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp,
     PRIMARY KEY (`id`)

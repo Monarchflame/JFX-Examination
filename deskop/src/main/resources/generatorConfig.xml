@@ -50,22 +50,49 @@
         </javaClientGenerator>
         <!-- tableName是数据库中的表名，domainObjectName是生成的JAVA模型名，后面的参数不用改，要生成更多的表就在下面继续加table标签 -->
 
-        <table tableName="teacher" domainObjectName="Teacher"></table>
+        <table tableName="teacher" domainObjectName="Teacher">
+            <ignoreColumn column="gmt_create" delimitedColumnName=""/>
+            <ignoreColumn column="gmt_modified" delimitedColumnName=""/>
+        </table>
 
-        <table tableName="exam" domainObjectName="Exam"></table>
+        <table tableName="exam" domainObjectName="Exam">
+            <ignoreColumn column="gmt_create" delimitedColumnName=""/>
+            <ignoreColumn column="gmt_modified" delimitedColumnName=""/>
+        </table>
 
-        <table tableName="software_config" domainObjectName="SoftwareConfig"></table>
+        <table tableName="software_config" domainObjectName="SoftwareConfig">
+            <ignoreColumn column="gmt_create" delimitedColumnName=""/>
+            <ignoreColumn column="gmt_modified" delimitedColumnName=""/>
+        </table>
 
-        <table tableName="select_software" domainObjectName="SelectSoftware"></table>
+        <table tableName="select_software" domainObjectName="SelectSoftware">
+            <ignoreColumn column="gmt_create" delimitedColumnName=""/>
+            <ignoreColumn column="gmt_modified" delimitedColumnName=""/>
+        </table>
 
-        <table tableName="software" domainObjectName="Software"></table>
+        <table tableName="software" domainObjectName="Software">
+            <ignoreColumn column="gmt_create" delimitedColumnName=""/>
+            <ignoreColumn column="gmt_modified" delimitedColumnName=""/>
+        </table>
 
-        <table tableName="exam_arrangement" domainObjectName="ExamArrangement"></table>
+        <table tableName="exam_arrangement" domainObjectName="ExamArrangement">
+            <ignoreColumn column="gmt_create" delimitedColumnName=""/>
+            <ignoreColumn column="gmt_modified" delimitedColumnName=""/>
+        </table>
 
-        <table tableName="student" domainObjectName="Student"></table>
+        <table tableName="student" domainObjectName="Student">
+            <ignoreColumn column="gmt_create" delimitedColumnName=""/>
+            <ignoreColumn column="gmt_modified" delimitedColumnName=""/>
+        </table>
 
-        <table tableName="course" domainObjectName="Course"></table>
+        <table tableName="course" domainObjectName="Course">
+            <ignoreColumn column="gmt_create" delimitedColumnName=""/>
+            <ignoreColumn column="gmt_modified" delimitedColumnName=""/>
+        </table>
 
-        <table tableName="select_course" domainObjectName="SelectCourse"></table>
+        <table tableName="select_course" domainObjectName="SelectCourse">
+            <ignoreColumn column="gmt_create" delimitedColumnName=""/>
+            <ignoreColumn column="gmt_modified" delimitedColumnName=""/>
+        </table>
     </context>
 </generatorConfiguration>

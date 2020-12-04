@@ -10,8 +10,6 @@
       <arg column="college" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="mobile" javaType="java.lang.String" jdbcType="CHAR" />
       <arg column="email" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="gmt_create" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-      <arg column="gmt_modified" javaType="java.util.Date" jdbcType="TIMESTAMP" />
     </constructor>
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -73,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, teacher_no, password, name, college, mobile, email, gmt_create, gmt_modified
+    id, teacher_no, password, name, college, mobile, email
   </sql>
   <select id="selectByExample" parameterType="com.desktop.entity.TeacherExample" resultMap="BaseResultMap">
     select
@@ -108,12 +106,10 @@
   <insert id="insert" parameterType="com.desktop.entity.Teacher">
     insert into teacher (id, teacher_no, password, 
       name, college, mobile, 
-      email, gmt_create, gmt_modified
-      )
+      email)
     values (#{id,jdbcType=BIGINT}, #{teacherNo,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{name,jdbcType=VARCHAR}, #{college,jdbcType=VARCHAR}, #{mobile,jdbcType=CHAR}, 
-      #{email,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
-      )
+      #{email,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.desktop.entity.Teacher">
     insert into teacher
@@ -139,12 +135,6 @@
       <if test="email != null">
         email,
       </if>
-      <if test="gmtCreate != null">
-        gmt_create,
-      </if>
-      <if test="gmtModified != null">
-        gmt_modified,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -167,12 +157,6 @@
       </if>
       <if test="email != null">
         #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="gmtCreate != null">
-        #{gmtCreate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="gmtModified != null">
-        #{gmtModified,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -206,12 +190,6 @@
       <if test="record.email != null">
         email = #{record.email,jdbcType=VARCHAR},
       </if>
-      <if test="record.gmtCreate != null">
-        gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.gmtModified != null">
-        gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
-      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -225,9 +203,7 @@
       name = #{record.name,jdbcType=VARCHAR},
       college = #{record.college,jdbcType=VARCHAR},
       mobile = #{record.mobile,jdbcType=CHAR},
-      email = #{record.email,jdbcType=VARCHAR},
-      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
-      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP}
+      email = #{record.email,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -253,12 +229,6 @@
       <if test="email != null">
         email = #{email,jdbcType=VARCHAR},
       </if>
-      <if test="gmtCreate != null">
-        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="gmtModified != null">
-        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
-      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -269,9 +239,7 @@
       name = #{name,jdbcType=VARCHAR},
       college = #{college,jdbcType=VARCHAR},
       mobile = #{mobile,jdbcType=CHAR},
-      email = #{email,jdbcType=VARCHAR},
-      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
-      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+      email = #{email,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

@@ -1,7 +1,5 @@
 package com.desktop.entity;
 
-import java.util.Date;
-
 public class SoftwareConfig {
     private Long id;
 
@@ -9,16 +7,10 @@ public class SoftwareConfig {
 
     private String name;
 
-    private Date gmtCreate;
-
-    private Date gmtModified;
-
-    public SoftwareConfig(Long id, Long teacherId, String name, Date gmtCreate, Date gmtModified) {
+    public SoftwareConfig(Long id, Long teacherId, String name) {
         this.id = id;
         this.teacherId = teacherId;
         this.name = name;
-        this.gmtCreate = gmtCreate;
-        this.gmtModified = gmtModified;
     }
 
     public SoftwareConfig() {
@@ -47,21 +39,5 @@ public class SoftwareConfig {
 
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
-    }
-
-    public Date getGmtCreate() {
-        return gmtCreate;
-    }
-
-    public void setGmtCreate(Date gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
-
-    public Date getGmtModified() {
-        return gmtModified;
-    }
-
-    public void setGmtModified(Date gmtModified) {
-        this.gmtModified = gmtModified;
     }
 }
