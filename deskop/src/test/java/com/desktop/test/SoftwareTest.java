@@ -1,7 +1,5 @@
 package com.desktop.test;
 
-import com.desktop.controller.WinMainAppController;
-import com.desktop.dao.SoftwareMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +13,5 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class SoftwareTest {
-    @Autowired
-    private WinMainAppController controller;
 
-    @Test
-    public void select() {
-        controller.getAll();
-    }
 }

@@ -18,14 +18,15 @@ DROP TABLE IF EXISTS `exam`;
 CREATE TABLE `exam`
 (
     `id`                 BIGINT UNSIGNED AUTO_INCREMENT,
-    `course_id`          BIGINT   NOT NULL COMMENT '课程ID',
-    `teacher_id`         BIGINT   NOT NULL COMMENT '教师ID',
-    `software_config_id` BIGINT   NOT NULL COMMENT '软件白名单配置ID',
-    `start_time`         datetime NOT NULL COMMENT '开始时间',
-    `end_time`           datetime NOT NULL COMMENT '结束时间',
-    `exam_time`          smallint NOT NULL COMMENT '考试时长',
-    `gmt_create`         datetime NOT NULL DEFAULT current_timestamp,
-    `gmt_modified`       datetime NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp,
+    `course_id`          BIGINT       NOT NULL COMMENT '课程ID',
+    `teacher_id`         BIGINT       NOT NULL COMMENT '教师ID',
+    `software_config_id` BIGINT       NOT NULL COMMENT '软件白名单配置ID',
+    `name`               VARCHAR(100) NOT NULL COMMENT '考试名',
+    `start_time`         datetime     NOT NULL COMMENT '开始时间',
+    `end_time`           datetime     NOT NULL COMMENT '结束时间',
+    `exam_time`          smallint     NOT NULL COMMENT '考试时长',
+    `gmt_create`         datetime     NOT NULL DEFAULT current_timestamp,
+    `gmt_modified`       datetime     NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='考试表';

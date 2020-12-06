@@ -11,17 +11,20 @@ public class Exam {
 
     private Long softwareConfigId;
 
+    private String name;
+
     private Date startTime;
 
     private Date endTime;
 
     private Short examTime;
 
-    public Exam(Long id, Long courseId, Long teacherId, Long softwareConfigId, Date startTime, Date endTime, Short examTime) {
+    public Exam(Long id, Long courseId, Long teacherId, Long softwareConfigId, String name, Date startTime, Date endTime, Short examTime) {
         this.id = id;
         this.courseId = courseId;
         this.teacherId = teacherId;
         this.softwareConfigId = softwareConfigId;
+        this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
         this.examTime = examTime;
@@ -61,6 +64,14 @@ public class Exam {
 
     public void setSoftwareConfigId(Long softwareConfigId) {
         this.softwareConfigId = softwareConfigId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
     public Date getStartTime() {
