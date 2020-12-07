@@ -5,8 +5,6 @@ import com.desktop.WinMainApp;
 import com.desktop.dao.*;
 import com.desktop.entity.*;
 import com.desktop.ui.*;
-import com.desktop.util.LibraryAssistantUtil;
-import com.desktop.util.SpringBeanUtils;
 import com.desktop.util.StudentUtil;
 import com.desktop.util.ThreadToolUtil;
 import com.desktop.view.MyExamView;
@@ -17,28 +15,19 @@ import de.felixroske.jfxsupport.FXMLController;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import fx.PrimaryStage;
 import fx.ui.util.RegionUtil;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.util.StringUtils;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -68,8 +57,6 @@ public class LoginController implements Initializable {
     private SelectCourseMapper selectCourseMapper;
     @Autowired
     private ExamArrangementMapper examArrangementMapper;
-    @Autowired
-    private MyExamView myExamView;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

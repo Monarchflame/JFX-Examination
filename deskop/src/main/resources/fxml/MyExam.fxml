@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDrawer?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <StackPane fx:id="rootPane" stylesheets="@../css/dark-theme.css" xmlns="http://javafx.com/javafx/8"
            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.desktop.controller.MyExamController">
     <children>
@@ -48,8 +44,7 @@
                         </TableView>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                             <children>
-                                <JFXButton fx:id="btnIssue" onAction="#enterExam"
-                                           onKeyPressed="#handleEnterExamButtonKeyPress" prefHeight="44.0"
+                                <JFXButton fx:id="btnIssue" onAction="#enterExam" prefHeight="44.0"
                                            prefWidth="151.0" text="进入">
                                     <HBox.margin>
                                         <Insets/>

@@ -7,6 +7,7 @@ import com.desktop.entity.ExamArrangement;
 import com.desktop.entity.ExamArrangementExample;
 import com.desktop.entity.Student;
 import com.desktop.util.AlertMaker;
+import com.desktop.util.CommonUtil;
 import com.desktop.util.StudentUtil;
 import de.felixroske.jfxsupport.FXMLController;
 import javafx.collections.FXCollections;
@@ -17,15 +18,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 
 import java.net.URL;
 import java.util.Date;
@@ -103,7 +99,8 @@ public class MyExamController implements Initializable {
                 list.add(exam);
             }
         }
-
+        CommonUtil.formatDate(startTimeCol);
+        CommonUtil.formatDate(endTimeCol);
         tableView.setItems(list);
     }
 
@@ -114,23 +111,6 @@ public class MyExamController implements Initializable {
      */
     @FXML
     private void enterExam(ActionEvent event) {
-
-    }
-
-    /**
-     * 进入考试
-     *
-     * @param event
-     */
-    @FXML
-    private void handleEnterExamButtonKeyPress(KeyEvent event) {
-        if (event.getCode() == KeyCode.ENTER) {
-            enterExam(null);
-        }
-    }
-
-    @FXML
-    private void loadExamInfo() {
 
     }
 }
