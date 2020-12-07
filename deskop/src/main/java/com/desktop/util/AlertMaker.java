@@ -138,9 +138,9 @@ public class AlertMaker {
         try {
             SystemTray tray = SystemTray.getSystemTray();
             BufferedImage image = ImageIO.read(AlertMaker.class.getResource(LibraryAssistantUtil.ICON_IMAGE_LOC));
-            TrayIcon trayIcon = new TrayIcon(image, "Library Assistant");
+            TrayIcon trayIcon = new TrayIcon(image, "考试系统");
             trayIcon.setImageAutoSize(true);
-            trayIcon.setToolTip("Library Assistant");
+            trayIcon.setToolTip("考试系统");
             tray.add(trayIcon);
             trayIcon.displayMessage(title, message, MessageType.INFO);
             tray.remove(trayIcon);
@@ -154,7 +154,7 @@ public class AlertMaker {
         LibraryAssistantUtil.setStageIcon(stage);
 
         DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(AlertMaker.class.getResource("/resources/dark-theme.css").toExternalForm());
+        dialogPane.getStylesheets().add(AlertMaker.class.getResource("/css/dark-theme.css").toExternalForm());
         dialogPane.getStyleClass().add("custom-alert");
     }
 }
