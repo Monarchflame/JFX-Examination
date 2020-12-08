@@ -1,13 +1,14 @@
 package com.desktop.controller;
 
 import com.desktop.WinMainApp;
-import com.desktop.dao.ExamArrangementMapper;
-import com.desktop.dao.ExamMapper;
-import com.desktop.dao.SoftwareMapper;
+import com.desktop.dao.*;
 import com.desktop.entity.*;
 import com.desktop.page.FormContent;
 import com.desktop.ui.*;
-import com.desktop.util.*;
+import com.desktop.util.AlertMaker;
+import com.desktop.util.CommonUtil;
+import com.desktop.util.Constant;
+import com.desktop.util.ThreadToolUtil;
 import com.jfoenix.controls.JFXDecorator;
 import de.felixroske.jfxsupport.FXMLController;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -33,7 +34,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.ResourceBundle;
 
 /**
  * @author qxt
@@ -64,6 +68,10 @@ public class MyExamController implements Initializable {
     private ExamArrangementMapper examArrangementMapper;
     @Autowired
     private SoftwareMapper softwareMapper;
+    @Autowired
+    private SoftwareConfigMapper softwareConfigMapper;
+    @Autowired
+    private SelectSoftwareMapper selectSoftwareMapper;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -170,7 +178,7 @@ public class MyExamController implements Initializable {
         desktopPane.getChildren().add(new DesktopItem(RegionUtil.createLabel("CVS浏览器", new FontAwesomeIconView(), "cvs-graphic"), () -> PageUtil.load("/fxml/Cvs.fxml")));
         desktopPane.getChildren().add(new DesktopItem(image, "百度搜索", webViewNodeFactory));
         desktopPane.getChildren().add(new DesktopItem(RegionUtil.createLabel("Form表单样式", new FontAwesomeIconView(), "form-graphic"), () -> new FormContent()));
-        addAllButton(desktopPane);
+        addSoftware(desktopPane);
 
         DesktopToolbar toolbar = new WinDesktopToolbar(desktopPane);
         WinDesktop desktop = new WinDesktop(desktopPane, toolbar);
@@ -192,11 +200,26 @@ public class MyExamController implements Initializable {
         });
     }
 
-    public void addAllButton(DesktopPane desktopPane) {
-        // todo: 改为查询白名单配置
-        Exam exam = Constant.exam;
+    /**
+     * 在考试面板上添加白名单软件
+     *
+     * @param desktopPane
+     */
+    private void addSoftware(DesktopPane desktopPane) {
+        List<Software> softwareList = new ArrayList<>();
 
-        List<Software> softwareList = softwareMapper.selectByExample(new SoftwareExample());
+        Exam exam = Constant.exam;
+        Long softwareConfigId = exam.getSoftwareConfigId();
+
+        SelectSoftwareExample selectSoftwareExample = new SelectSoftwareExample();
+        selectSoftwareExample.or().andSoftwareConfigIdEqualTo(softwareConfigId);
+        List<SelectSoftware> selectSoftwareList = selectSoftwareMapper.selectByExample(selectSoftwareExample);
+
+        for (SelectSoftware selectSoftware : selectSoftwareList) {
+            Software software = softwareMapper.selectByPrimaryKey(selectSoftware.getSoftwareId());
+            softwareList.add(software);
+        }
+
         for (Software software : softwareList) {
             desktopPane.getChildren().add(new DesktopItem(RegionUtil.createLabel(software.getName(), new FontAwesomeIconView(), "plan-pane-graphic"),
                     () -> new ApplicationButton(software.getName(), software.getPath())));
