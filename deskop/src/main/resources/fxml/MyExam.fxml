@@ -10,7 +10,7 @@
     <children>
         <JFXDrawer fx:id="drawer" defaultDrawerSize="150.0" resizableOnDrag="true" resizeContent="true"
                    styleClass="jfx-drawer"/>
-        <AnchorPane id="rootAnchorPane" fx:id="contentPane" prefHeight="525.0" prefWidth="798.0"
+        <AnchorPane fx:id="contentPane" prefHeight="525.0" prefWidth="798.0"
                     stylesheets="@../css/dark-theme.css">
             <children>
                 <VBox>

@@ -19,7 +19,10 @@ import fx.util.DialogUtil;
 import ldh.fxanimations.CachedTimelineTransition;
 
 /**
- * Created by ldh on 2018/1/11.
+ * 桌面面板
+ *
+ * @author qxt
+ * @date 2020/12/01
  */
 public class DesktopPane extends FlowPane {
 
@@ -27,9 +30,12 @@ public class DesktopPane extends FlowPane {
         this.getStyleClass().add("desktop-pane");
         setOrientation(Orientation.VERTICAL);
 
-        initPopupMenu();
+//        initPopupMenu();
     }
 
+    /**
+     * 右键菜单
+     */
     private void initPopupMenu() {
         ContextMenu contextMenu = new ContextMenu();
         contextMenu.setAutoHide(true);

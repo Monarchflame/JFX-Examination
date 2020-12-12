@@ -15,17 +15,27 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import fx.PrimaryStage;
 import fx.ui.util.PageUtil;
 import fx.ui.util.RegionUtil;
+import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
@@ -33,11 +43,13 @@ import javafx.stage.StageStyle;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * @author qxt
@@ -51,6 +63,8 @@ public class MyExamController implements Initializable {
 
     @FXML
     private StackPane rootPane;
+    @FXML
+    private AnchorPane contentPane;
     @FXML
     private TableView<Exam> tableView;
     @FXML
@@ -166,6 +180,38 @@ public class MyExamController implements Initializable {
     private void enterExam() {
         getStage().close();
         Stage stage = new Stage();
+
+        DesktopPane desktopPane = initDesktopPane();
+        DesktopToolbar toolbar = new WinDesktopToolbar(desktopPane);
+        WinDesktop desktop = new WinDesktop(desktopPane, toolbar);
+        JFXDecorator jfxDecorator = new JFXDecorator(stage, desktop);
+
+        Scene scene = new Scene(jfxDecorator, 1200, 700);
+        scene.getStylesheets().add(this.getClass().getResource("/css/win10.css").toExternalForm());
+        scene.getStylesheets().add(this.getClass().getResource("/css/Common.css").toExternalForm());
+        scene.getStylesheets().add("/css/fxdialog.css");
+
+        stage.setScene(scene);
+        stage.setTitle("Win10桌面");
+        stage.initStyle(StageStyle.UNDECORATED);
+//        stage.setMaximized(true);
+        stage.setFullScreen(true);
+        // 禁止退出全屏
+        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+        stage.setResizable(false);
+        stage.show();
+        stage.setOnCloseRequest(e -> {
+            PrimaryStage.closeAllNewStages();
+            ThreadToolUtil.close();
+        });
+    }
+
+    /**
+     * 初始化考试桌面
+     *
+     * @return
+     */
+    private DesktopPane initDesktopPane() {
         // 加载Windows图标
         Image image = new Image(WinMainApp.class.getResource("/images/win10.png").toExternalForm());
         DesktopNodeFactory webViewNodeFactory = () -> {
@@ -178,26 +224,13 @@ public class MyExamController implements Initializable {
         desktopPane.getChildren().add(new DesktopItem(RegionUtil.createLabel("CVS浏览器", new FontAwesomeIconView(), "cvs-graphic"), () -> PageUtil.load("/fxml/Cvs.fxml")));
         desktopPane.getChildren().add(new DesktopItem(image, "百度搜索", webViewNodeFactory));
         desktopPane.getChildren().add(new DesktopItem(RegionUtil.createLabel("Form表单样式", new FontAwesomeIconView(), "form-graphic"), () -> new FormContent()));
+        // 添加软件白名单中的软件
         addSoftware(desktopPane);
+        // 添加退出按钮
+        desktopPane.getChildren().add(new DesktopItem(RegionUtil.createLabel("退出考试", new FontAwesomeIconView(), "plan-pane-graphic"),
+                () -> new ExitButton("退出考试")));
 
-        DesktopToolbar toolbar = new WinDesktopToolbar(desktopPane);
-        WinDesktop desktop = new WinDesktop(desktopPane, toolbar);
-
-        JFXDecorator jfxDecorator = new JFXDecorator(stage, desktop);
-        Scene scene = new Scene(jfxDecorator, 1200, 700);
-        scene.getStylesheets().add(this.getClass().getResource("/css/win10.css").toExternalForm());
-        scene.getStylesheets().add(this.getClass().getResource("/css/Common.css").toExternalForm());
-        scene.getStylesheets().add("/css/fxdialog.css");
-        stage.setScene(scene);
-        stage.setTitle("Win10桌面");
-
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.setMaximized(true);
-        stage.show();
-        stage.setOnCloseRequest(e -> {
-            PrimaryStage.closeAllNewStages();
-            ThreadToolUtil.close();
-        });
+        return desktopPane;
     }
 
     /**
