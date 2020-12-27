@@ -22,7 +22,7 @@
                                 <TableColumn fx:id="examNameCol" prefWidth="75.0" text="考试名"/>
                                 <TableColumn fx:id="startTimeCol" prefWidth="75.0" text="开始时间"/>
                                 <TableColumn fx:id="endTimeCol" prefWidth="75.0" text="结束时间"/>
-                                <TableColumn fx:id="examTimeCol" prefWidth="75.0" text="考试时常"/>
+                                <TableColumn fx:id="examTimeCol" prefWidth="75.0" text="考试时长"/>
                             </columns>
                             <!--                                    <contextMenu>-->
                             <!--                                        <ContextMenu>-->

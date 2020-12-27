@@ -2,7 +2,9 @@ package com.desktop.controller;
 
 import com.desktop.MainApplication;
 import com.desktop.dao.*;
-import com.desktop.entity.*;
+import com.desktop.entity.Student;
+import com.desktop.entity.StudentExample;
+import com.desktop.monitor.MonitorTread;
 import com.desktop.util.Constant;
 import com.desktop.view.MyExamView;
 import com.jfoenix.controls.JFXPasswordField;
@@ -31,7 +33,7 @@ public class LoginController implements Initializable {
     @FXML
     private AnchorPane loginPane;
     @FXML
-    private JFXTextField userName;
+    private JFXTextField userNameField;
     @FXML
     private JFXPasswordField passwordField;
     @Autowired
@@ -56,8 +58,8 @@ public class LoginController implements Initializable {
      * 登录
      */
     @FXML
-    private void handleLoginButtonAction() {
-        String studentNo = userName.getText().trim();
+    private void login() {
+        String studentNo = userNameField.getText().trim();
         String password = passwordField.getText().trim();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText(null);
@@ -88,8 +90,9 @@ public class LoginController implements Initializable {
             // 登录
             if (student != null) {
                 Constant.student = student;
-                ((Stage) userName.getScene().getWindow()).close();
-                openExamList();
+                ((Stage) userNameField.getScene().getWindow()).close();
+                openExamListStage();
+                connectToTeacher();
             } else {
                 alert.setContentText("请输入正确的密码！");
                 alert.showAndWait();
@@ -97,8 +100,15 @@ public class LoginController implements Initializable {
         }
     }
 
-    public void openExamList() {
+    private void openExamListStage() {
         MainApplication.showView(MyExamView.class);
     }
 
+    /**
+     * 连接到教师端
+     */
+    private void connectToTeacher() {
+        Thread thread = new Thread(new MonitorTread());
+        thread.start();
+    }
 }

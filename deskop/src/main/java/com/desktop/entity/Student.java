@@ -1,5 +1,7 @@
 package com.desktop.entity;
 
+import com.desktop.monitor.MonitorClient;
+
 public class Student {
     private Long id;
 
@@ -14,6 +16,8 @@ public class Student {
     private String major;
 
     private String mobile;
+
+    private MonitorClient monitorClient;
 
     public Student(Long id, String studentNo, String password, String name, String college, String major, String mobile) {
         this.id = id;
@@ -83,5 +87,13 @@ public class Student {
 
     public void setMobile(String mobile) {
         this.mobile = mobile == null ? null : mobile.trim();
+    }
+
+    public MonitorClient getMonitorClient() {
+        return monitorClient;
+    }
+
+    public void setMonitorClient(MonitorClient monitorClient) {
+        this.monitorClient = monitorClient;
     }
 }
