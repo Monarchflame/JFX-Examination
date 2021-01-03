@@ -59,11 +59,19 @@ public class MonitorClient {
         return bfImage;
     }
 
+    /**
+     * 登录
+     */
     public void load() {
         byte[] bytes = "client".getBytes();
         Protocol.send(Protocol.TYPE_LOAD, bytes, dos);
     }
 
+    /**
+     * 发送屏幕截图
+     *
+     * @param buff
+     */
     public void sendImage(BufferedImage buff) {
         if (buff == null) {
             return;

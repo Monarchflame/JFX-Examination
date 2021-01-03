@@ -21,7 +21,7 @@ public class CommonUtil {
      */
     public static <T> void formatDate(TableColumn<T, Date> tableColumn) {
         tableColumn.setCellFactory(column -> new TableCell<T, Date>() {
-            private final SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
+            private final SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
 
             @Override
             protected void updateItem(Date item, boolean empty) {

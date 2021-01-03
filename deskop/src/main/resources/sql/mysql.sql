@@ -67,18 +67,6 @@ CREATE TABLE `software`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='软件表';
 
-DROP TABLE IF EXISTS `exam_arrangement`;
-CREATE TABLE `exam_arrangement`
-(
-    `id`           BIGINT UNSIGNED AUTO_INCREMENT,
-    `exam_id`      BIGINT   NOT NULL COMMENT '考试ID',
-    `student_id`   BIGINT   NOT NULL COMMENT '学生ID',
-    `gmt_create`   datetime NOT NULL DEFAULT current_timestamp,
-    `gmt_modified` datetime NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp,
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='考试安排表';
-
 DROP TABLE IF EXISTS `student`;
 CREATE TABLE `student`
 (

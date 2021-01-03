@@ -14,7 +14,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -31,23 +33,13 @@ import java.util.ResourceBundle;
 @Slf4j
 public class LoginController implements Initializable {
     @FXML
-    private AnchorPane loginPane;
+    private StackPane rootPane;
     @FXML
     private JFXTextField userNameField;
     @FXML
     private JFXPasswordField passwordField;
     @Autowired
     private StudentMapper studentMapper;
-    @Autowired
-    private SoftwareMapper softwareMapper;
-    @Autowired
-    private SelectSoftwareMapper selectSoftwareMapper;
-    @Autowired
-    private ExamMapper examMapper;
-    @Autowired
-    private SelectCourseMapper selectCourseMapper;
-    @Autowired
-    private ExamArrangementMapper examArrangementMapper;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

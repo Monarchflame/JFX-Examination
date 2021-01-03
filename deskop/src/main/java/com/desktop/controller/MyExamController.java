@@ -5,36 +5,25 @@ import com.desktop.dao.*;
 import com.desktop.entity.*;
 import com.desktop.page.FormContent;
 import com.desktop.ui.*;
-import com.desktop.util.AlertMaker;
-import com.desktop.util.CommonUtil;
-import com.desktop.util.Constant;
-import com.desktop.util.ThreadToolUtil;
+import com.desktop.util.*;
 import com.jfoenix.controls.JFXDecorator;
 import de.felixroske.jfxsupport.FXMLController;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import fx.PrimaryStage;
 import fx.ui.util.PageUtil;
 import fx.ui.util.RegionUtil;
-import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.web.WebView;
@@ -43,13 +32,11 @@ import javafx.stage.StageStyle;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * @author qxt
@@ -79,13 +66,13 @@ public class MyExamController implements Initializable {
     @Autowired
     private ExamMapper examMapper;
     @Autowired
-    private ExamArrangementMapper examArrangementMapper;
-    @Autowired
     private SoftwareMapper softwareMapper;
     @Autowired
     private SoftwareConfigMapper softwareConfigMapper;
     @Autowired
     private SelectSoftwareMapper selectSoftwareMapper;
+    @Autowired
+    private SelectCourseMapper selectCourseMapper;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -118,13 +105,19 @@ public class MyExamController implements Initializable {
             AlertMaker.showSimpleAlert("错误", "考生未登录");
             return;
         }
-        ExamArrangementExample example = new ExamArrangementExample();
-        example.or().andStudentIdEqualTo(student.getId());
-        List<ExamArrangement> examArrangements = examArrangementMapper.selectByExample(example);
-        if (examArrangements != null) {
-            for (ExamArrangement examArrangement : examArrangements) {
-                Exam exam = examMapper.selectByPrimaryKey(examArrangement.getExamId());
-                // 只把未结束的加进去
+        // 查选课信息
+        SelectCourseExample selectCourseExample = new SelectCourseExample();
+        selectCourseExample.or().andStudentIdEqualTo(student.getId());
+        List<SelectCourse> selectCourses = selectCourseMapper.selectByExample(selectCourseExample);
+        // 查考试信息
+        for (SelectCourse selectCourse : selectCourses) {
+            Long courseId = selectCourse.getCourseId();
+            ExamExample examExample = new ExamExample();
+            examExample.or().andCourseIdEqualTo(courseId);
+            List<Exam> exams = examMapper.selectByExample(examExample);
+            // exams长度应为1
+            for (Exam exam : exams) {
+                // 只把未结束的考试加进去
                 if (exam.getEndTime().after(new Date())) {
                     list.add(exam);
                 }
@@ -132,7 +125,6 @@ public class MyExamController implements Initializable {
         }
         CommonUtil.formatDate(startTimeCol);
         CommonUtil.formatDate(endTimeCol);
-
         tableView.setItems(list);
     }
 
@@ -178,6 +170,10 @@ public class MyExamController implements Initializable {
      * 进入考试界面
      */
     private void enterExam() {
+        KeyboardHook keyboardHook = new KeyboardHook();
+        Thread keyboardHookThread = new Thread(keyboardHook);
+        keyboardHookThread.start();
+
         getStage().close();
         Stage stage = new Stage();
 
@@ -200,9 +196,11 @@ public class MyExamController implements Initializable {
         stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         stage.setResizable(false);
         stage.show();
+
         stage.setOnCloseRequest(e -> {
             PrimaryStage.closeAllNewStages();
             ThreadToolUtil.close();
+            keyboardHookThread.stop();
         });
     }
 
