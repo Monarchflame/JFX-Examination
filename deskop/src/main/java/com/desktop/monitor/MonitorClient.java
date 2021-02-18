@@ -1,5 +1,8 @@
 package com.desktop.monitor;
 
+import com.desktop.util.Constant;
+import lombok.extern.slf4j.Slf4j;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -8,13 +11,18 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 /**
- * 连接到教师端
+ * 监考学生端
  *
  * @author qxt
  */
-public class MonitorClient {
+@Slf4j
+public class MonitorClient implements Runnable {
+    // 教师端端口
+    private static final int TEACHER_PORT = 33000;
+
     public Socket socket;
 
     public DataOutputStream dos = null;
@@ -35,16 +43,14 @@ public class MonitorClient {
     /**
      * 连接
      */
-    public boolean connect(InetAddress address, int port) {
+    private boolean connect(InetAddress address, int port) {
         try {
             socket = new Socket(address, port);
             dos = new DataOutputStream(socket.getOutputStream());
-            // dos.writeUTF("client");
+            log.info("连接" + address + ":" + port + "成功");
             return true;
         } catch (IOException e) {
-            e.printStackTrace();
-            // 连接失败
-            System.out.println("连接失败");
+            log.info("连接" + address + ":" + port + "失败");
             return false;
         }
     }
@@ -64,7 +70,7 @@ public class MonitorClient {
      */
     public void load() {
         byte[] bytes = "client".getBytes();
-        Protocol.send(Protocol.TYPE_LOAD, bytes, dos);
+        MyProtocol.send(MyProtocol.LOGIN, bytes, dos);
     }
 
     /**
@@ -79,9 +85,8 @@ public class MonitorClient {
         try {
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             ImageIO.write(buff, "png", outputStream);
-            Protocol.send(Protocol.TYPE_IMAGE, outputStream.toByteArray(), dos);
+            MyProtocol.send(MyProtocol.IMAGE, outputStream.toByteArray(), dos);
             outputStream.close();
-            System.out.println("send file successfully");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -91,7 +96,7 @@ public class MonitorClient {
      * 关闭连接
      */
     public void close() {
-        Protocol.send(Protocol.TYPE_LOGOUT, new String("logout").getBytes(), dos);
+        MyProtocol.send(MyProtocol.LOGOUT, new String("logout").getBytes(), dos);
         try {
             if (dos != null) {
                 dos.close();
@@ -104,35 +109,49 @@ public class MonitorClient {
         }
     }
 
-    /**
-     * 图片缩放
-     *
-     * @param bfImage
-     * @param scale
-     * @return
-     */
-    public BufferedImage scale(BufferedImage bfImage, double scale) {
-        int width = bfImage.getWidth();
-        int height = bfImage.getHeight();
-        Image image = bfImage.getScaledInstance((int) (width * scale), (int) (height * scale), Image.SCALE_DEFAULT);
-        BufferedImage tag = new BufferedImage((int) (width * scale), (int) (height * scale), BufferedImage.TYPE_INT_RGB);
-        Graphics2D g = tag.createGraphics();
-        g.drawImage(image, 0, 0, null);
-        g.dispose();
-        return tag;
+    @Override
+    public void run() {
+        boolean connectResult = false;
+        while (!connectResult) {
+            MonitorClient monitorClient = Constant.student.getMonitorClient();
+            if (monitorClient == null) {
+                monitorClient = new MonitorClient();
+                Constant.student.setMonitorClient(monitorClient);
+            }
+            // 教师端IP todo:这里先写死
+            InetAddress teacherHost = null;
+            try {
+                teacherHost = InetAddress.getLocalHost();
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+                return;
+            }
+
+            connectResult = monitorClient.connect(teacherHost, TEACHER_PORT);
+            if (connectResult) {
+                // 登录
+                monitorClient.load();
+                while (monitorClient.isLive) {
+                    monitorClient.sendImage(monitorClient.getScreenShot());
+                    try {
+                        Thread.sleep(50);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            try {
+                Thread.sleep(100);
+                log.info("重新连接中");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
-//    public static void main(String[] args) throws UnknownHostException {
-//        final MonitorClient client = new MonitorClient();
-//        client.connect(InetAddress.getLocalHost(), 33000);
-//        client.load();
-//        while (client.isLive) {
-//            client.sendImage(client.getScreenShot());
-//            try {
-//                Thread.sleep(50);
-//            } catch (InterruptedException ev) {
-//
-//            }
-//        }
-//    }
+    public static void main(String[] args) throws UnknownHostException {
+        Thread thread = new Thread(new MonitorClient());
+        thread.start();
+    }
 }

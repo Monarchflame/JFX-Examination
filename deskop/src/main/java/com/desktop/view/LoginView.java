@@ -7,6 +7,6 @@ import de.felixroske.jfxsupport.FXMLView;
  * @author qxt
  * @date 2020/12/2 21:25
  */
-@FXMLView("/fxml/Login.fxml")
+@FXMLView(value = "/fxml/Login.fxml" , title = "学生端登录")
 public class LoginView extends AbstractFxmlView {
 }

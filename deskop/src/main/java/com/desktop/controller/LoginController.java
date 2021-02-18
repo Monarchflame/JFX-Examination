@@ -1,10 +1,10 @@
 package com.desktop.controller;
 
 import com.desktop.MainApplication;
-import com.desktop.dao.*;
+import com.desktop.dao.StudentMapper;
 import com.desktop.entity.Student;
 import com.desktop.entity.StudentExample;
-import com.desktop.monitor.MonitorTread;
+import com.desktop.monitor.MonitorClient;
 import com.desktop.util.Constant;
 import com.desktop.view.MyExamView;
 import com.jfoenix.controls.JFXPasswordField;
@@ -13,10 +13,8 @@ import de.felixroske.jfxsupport.FXMLController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -100,7 +98,7 @@ public class LoginController implements Initializable {
      * 连接到教师端
      */
     private void connectToTeacher() {
-        Thread thread = new Thread(new MonitorTread());
+        Thread thread = new Thread(new MonitorClient());
         thread.start();
     }
 }
