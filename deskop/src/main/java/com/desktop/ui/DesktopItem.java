@@ -99,8 +99,7 @@ public class DesktopItem extends StackPane {
         Node newNode = buildNewGraphic(this.getLabel().getGraphic());
         toolbarButton.getButton().setGraphic(newNode);
         toolbarButton.getButton().getGraphic().getStyleClass().add("desktop-button-min-graphic");
-        desktopToolbar.getContentPane().getChildren().add(toolbarButton);
-
+        desktopToolbar.addToolbarButton(toolbarButton);
         Object obj = desktopNodeFactory.create();
 
         if (desktopNodeFactory.isButton(obj)) {
@@ -108,7 +107,7 @@ public class DesktopItem extends StackPane {
             button.fire();
             // 可从任务栏关闭页面
             toolbarButton.getButton().addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, e -> {
-                desktopToolbar.getContentPane().getChildren().remove(toolbarButton);
+                desktopToolbar.removeToolbarButton(toolbarButton);
                 e.consume();
             });
             // 点击任务栏跳出
@@ -118,13 +117,13 @@ public class DesktopItem extends StackPane {
             FxDialog fxDialog = new FxDialog(PrimaryStage.STAGE);
             fxDialog.setTitle(getLabel().getTooltip().getText());
             fxDialog.setContent((Parent) obj, 800, 500);
-            fxDialog.setOnCloseRequest(e -> desktopToolbar.getContentPane().getChildren().remove(toolbarButton));
+            fxDialog.setOnCloseRequest(e -> desktopToolbar.removeToolbarButton(toolbarButton));
             toolbarButton.getButton().setOnAction(e -> {
                 fxDialog.setIconified(false);
             });
             // 可从任务栏关闭页面
             toolbarButton.getButton().addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, e -> {
-                desktopToolbar.getContentPane().getChildren().remove(toolbarButton);
+                desktopToolbar.removeToolbarButton(toolbarButton);
                 fxDialog.close();
                 e.consume();
             });
@@ -134,7 +133,7 @@ public class DesktopItem extends StackPane {
             stage.show();
             stage.requestFocus();
             PrimaryStage.putNewStage(stage, (Void) -> {
-                desktopToolbar.getContentPane().getChildren().remove(toolbarButton);
+                desktopToolbar.removeToolbarButton(toolbarButton);
                 return null;
             });
             toolbarButton.getButton().setOnAction(e -> {
@@ -148,7 +147,7 @@ public class DesktopItem extends StackPane {
             toolbarButton.getButton().addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, e -> {
                 stage.close();
                 PrimaryStage.closeNewStage(stage);
-                desktopToolbar.getContentPane().getChildren().remove(toolbarButton);
+                desktopToolbar.removeToolbarButton(toolbarButton);
                 e.consume();
             });
         } else {
