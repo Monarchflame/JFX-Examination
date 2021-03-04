@@ -3,6 +3,7 @@ package com.desktop.controller;
 import com.desktop.WinMainApp;
 import com.desktop.dao.*;
 import com.desktop.entity.*;
+import com.desktop.invigilation.monitor.KeyboardHook;
 import com.desktop.page.FormContent;
 import com.desktop.ui.*;
 import com.desktop.util.*;
@@ -19,6 +20,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -33,6 +35,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -123,8 +126,8 @@ public class MyExamController implements Initializable {
                 }
             }
         }
-        CommonUtil.formatDate(startTimeCol);
-        CommonUtil.formatDate(endTimeCol);
+        formatDate(startTimeCol);
+        formatDate(endTimeCol);
         tableView.setItems(list);
     }
 
@@ -255,5 +258,27 @@ public class MyExamController implements Initializable {
             desktopPane.getChildren().add(new DesktopItem(RegionUtil.createLabel(software.getName(), new FontAwesomeIconView(), "plan-pane-graphic"),
                     () -> new ApplicationButton(software.getName(), software.getPath())));
         }
+    }
+
+    /**
+     * 格式化表格日期列
+     *
+     * @param tableColumn
+     * @param <T>
+     */
+    public static <T> void formatDate(TableColumn<T, Date> tableColumn) {
+        tableColumn.setCellFactory(column -> new TableCell<T, Date>() {
+            private final SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+
+            @Override
+            protected void updateItem(Date item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setText(null);
+                } else {
+                    this.setText(format.format(item));
+                }
+            }
+        });
     }
 }

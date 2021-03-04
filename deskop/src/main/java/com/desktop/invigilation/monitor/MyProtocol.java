@@ -1,6 +1,5 @@
-package com.desktop.monitor;
+package com.desktop.invigilation.monitor;
 
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 

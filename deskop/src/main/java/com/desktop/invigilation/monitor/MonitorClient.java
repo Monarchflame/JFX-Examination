@@ -1,4 +1,4 @@
-package com.desktop.monitor;
+package com.desktop.invigilation.monitor;
 
 import com.desktop.util.Constant;
 import lombok.extern.slf4j.Slf4j;

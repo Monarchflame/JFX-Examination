@@ -4,7 +4,7 @@ import com.desktop.MainApplication;
 import com.desktop.dao.StudentMapper;
 import com.desktop.entity.Student;
 import com.desktop.entity.StudentExample;
-import com.desktop.monitor.MonitorClient;
+import com.desktop.invigilation.monitor.MonitorClient;
 import com.desktop.util.Constant;
 import com.desktop.view.MyExamView;
 import com.jfoenix.controls.JFXPasswordField;

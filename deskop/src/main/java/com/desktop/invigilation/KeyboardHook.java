@@ -1,4 +1,4 @@
-package com.desktop.util;
+package com.desktop.invigilation;
 
 import com.sun.jna.platform.win32.Kernel32;
 import com.sun.jna.platform.win32.User32;
@@ -60,7 +60,9 @@ public class KeyboardHook implements Runnable {
         }
     }
 
-    // 移除钩子并退出
+    /**
+     * 移除钩子并退出
+     */
     public void setHookOff() {
         System.out.println("KeyboardHook Hook Off!");
         User32.INSTANCE.UnhookWindowsHookEx(hhk);

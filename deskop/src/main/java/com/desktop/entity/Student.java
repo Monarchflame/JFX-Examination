@@ -1,6 +1,6 @@
 package com.desktop.entity;
 
-import com.desktop.monitor.MonitorClient;
+import com.desktop.invigilation.monitor.MonitorClient;
 
 public class Student {
     private Long id;
