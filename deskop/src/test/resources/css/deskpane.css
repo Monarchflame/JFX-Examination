@@ -10,11 +10,11 @@
     -fx-font-size: 18px;
 }
 
-/*.desktop-context-menu .menu-item .label,.button{*/
+/*.qxt-context-menu .menu-item .label,.button{*/
     /*-fx-text-fill: black;*/
 /*}*/
 
-/*.desktop-context-menu .menu-item:hover {*/
+/*.qxt-context-menu .menu-item:hover {*/
     /*-fx-background-color: #cfcfcf;*/
 /*}*/
 

@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.StackPane?>
 <StackPane fx:id="rootPane" prefHeight="367.0" prefWidth="419.0" stylesheets="@../css/dark-theme.css"
            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="com.desktop.controller.LoginController">
+           fx:controller="com.qxt.controller.LoginController">
     <AnchorPane>
         <children>
             <JFXTextField fx:id="userNameField" labelFloat="true" layoutX="95.0" layoutY="122.0" prefHeight="33.0"
