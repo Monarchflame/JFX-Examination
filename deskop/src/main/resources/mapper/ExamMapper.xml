@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.qxt.dao.ExamMapper">
-  <resultMap id="BaseResultMap" type="com.qxt.entity.Exam">
+<mapper namespace="com.desktop.dao.ExamMapper">
+  <resultMap id="BaseResultMap" type="com.desktop.entity.Exam">
     <constructor>
       <idArg column="id" javaType="java.lang.Long" jdbcType="BIGINT" />
       <arg column="course_id" javaType="java.lang.Long" jdbcType="BIGINT" />
@@ -74,7 +74,7 @@
   <sql id="Base_Column_List">
     id, course_id, teacher_id, software_config_id, name, start_time, end_time, exam_time
   </sql>
-  <select id="selectByExample" parameterType="com.qxt.entity.ExamExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.desktop.entity.ExamExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -98,13 +98,13 @@
     delete from exam
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.qxt.entity.ExamExample">
+  <delete id="deleteByExample" parameterType="com.desktop.entity.ExamExample">
     delete from exam
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.qxt.entity.Exam">
+  <insert id="insert" parameterType="com.desktop.entity.Exam">
     insert into exam (id, course_id, teacher_id, 
       software_config_id, name, start_time, 
       end_time, exam_time)
@@ -112,7 +112,7 @@
       #{softwareConfigId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, 
       #{endTime,jdbcType=TIMESTAMP}, #{examTime,jdbcType=SMALLINT})
   </insert>
-  <insert id="insertSelective" parameterType="com.qxt.entity.Exam">
+  <insert id="insertSelective" parameterType="com.desktop.entity.Exam">
     insert into exam
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -167,7 +167,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.qxt.entity.ExamExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.desktop.entity.ExamExample" resultType="java.lang.Long">
     select count(*) from exam
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -219,7 +219,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.qxt.entity.Exam">
+  <update id="updateByPrimaryKeySelective" parameterType="com.desktop.entity.Exam">
     update exam
     <set>
       <if test="courseId != null">
@@ -246,7 +246,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.qxt.entity.Exam">
+  <update id="updateByPrimaryKey" parameterType="com.desktop.entity.Exam">
     update exam
     set course_id = #{courseId,jdbcType=BIGINT},
       teacher_id = #{teacherId,jdbcType=BIGINT},

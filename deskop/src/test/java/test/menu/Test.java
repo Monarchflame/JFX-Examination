@@ -44,7 +44,7 @@ public class Test extends Application {
         MenuItem notFullScreen = new MenuItem("退出全屏");
         MenuItem about = new MenuItem("关于");
         about.setOnAction(e->{
-            DialogUtil.info("javafx demo", "javafx qxt demo", 300d, 150d);
+            DialogUtil.info("javafx demo", "javafx desktop demo", 300d, 150d);
         });
         contextMenu.getItems().addAll(fullScreen, notFullScreen, about);
         return contextMenu;

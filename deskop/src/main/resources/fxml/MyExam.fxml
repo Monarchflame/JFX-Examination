@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <StackPane fx:id="rootPane" stylesheets="@../css/dark-theme.css" xmlns="http://javafx.com/javafx/8"
-           xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qxt.controller.MyExamController">
+           xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.desktop.controller.MyExamController">
     <children>
         <JFXDrawer fx:id="drawer" defaultDrawerSize="150.0" resizableOnDrag="true" resizeContent="true"
                    styleClass="jfx-drawer"/>

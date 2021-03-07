@@ -229,7 +229,7 @@ public class Undecorator extends StackPane {
             }
         });
 
-        // UI part of the decoration
+        // ui part of the decoration
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(stageDecorationFxmlAsURL);
             fxmlLoader.setController(this);

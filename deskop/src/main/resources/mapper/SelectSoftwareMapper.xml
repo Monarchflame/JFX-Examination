@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.qxt.dao.SelectSoftwareMapper">
-  <resultMap id="BaseResultMap" type="com.qxt.entity.SelectSoftware">
+<mapper namespace="com.desktop.dao.SelectSoftwareMapper">
+  <resultMap id="BaseResultMap" type="com.desktop.entity.SelectSoftware">
     <constructor>
       <idArg column="id" javaType="java.lang.Long" jdbcType="BIGINT" />
       <arg column="software_config_id" javaType="java.lang.Long" jdbcType="BIGINT" />
@@ -69,7 +69,7 @@
   <sql id="Base_Column_List">
     id, software_config_id, software_id
   </sql>
-  <select id="selectByExample" parameterType="com.qxt.entity.SelectSoftwareExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.desktop.entity.SelectSoftwareExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -93,19 +93,19 @@
     delete from select_software
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.qxt.entity.SelectSoftwareExample">
+  <delete id="deleteByExample" parameterType="com.desktop.entity.SelectSoftwareExample">
     delete from select_software
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.qxt.entity.SelectSoftware">
+  <insert id="insert" parameterType="com.desktop.entity.SelectSoftware">
     insert into select_software (id, software_config_id, software_id
       )
     values (#{id,jdbcType=BIGINT}, #{softwareConfigId,jdbcType=BIGINT}, #{softwareId,jdbcType=BIGINT}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.qxt.entity.SelectSoftware">
+  <insert id="insertSelective" parameterType="com.desktop.entity.SelectSoftware">
     insert into select_software
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -130,7 +130,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.qxt.entity.SelectSoftwareExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.desktop.entity.SelectSoftwareExample" resultType="java.lang.Long">
     select count(*) from select_software
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -162,7 +162,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.qxt.entity.SelectSoftware">
+  <update id="updateByPrimaryKeySelective" parameterType="com.desktop.entity.SelectSoftware">
     update select_software
     <set>
       <if test="softwareConfigId != null">
@@ -174,7 +174,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.qxt.entity.SelectSoftware">
+  <update id="updateByPrimaryKey" parameterType="com.desktop.entity.SelectSoftware">
     update select_software
     set software_config_id = #{softwareConfigId,jdbcType=BIGINT},
       software_id = #{softwareId,jdbcType=BIGINT}

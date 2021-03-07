@@ -9,17 +9,17 @@
 <?import javafx.scene.layout.StackPane?>
 <StackPane fx:id="rootPane" prefHeight="367.0" prefWidth="419.0" stylesheets="@../css/dark-theme.css"
            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="com.qxt.controller.LoginController">
+           fx:controller="com.desktop.controller.LoginController">
     <AnchorPane>
         <children>
             <JFXTextField fx:id="userNameField" labelFloat="true" layoutX="95.0" layoutY="122.0" prefHeight="33.0"
-                          prefWidth="259.0" promptText="Username">
+                          prefWidth="259.0" promptText="Username" text="201700800370">
                 <font>
                     <Font size="16.0"/>
                 </font>
             </JFXTextField>
             <JFXPasswordField fx:id="passwordField" labelFloat="true" layoutX="97.0" layoutY="194.0"
-                              onAction="#login" prefHeight="34.0" prefWidth="259.0" promptText="Password">
+                              onAction="#login" prefHeight="34.0" prefWidth="259.0" promptText="Password" text="123456">
                 <font>
                     <Font size="17.0"/>
                 </font>

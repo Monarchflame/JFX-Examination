@@ -84,7 +84,7 @@ import javafx.util.Callback;
 /**
  * A class containing a number of pre-built JavaFX modal dialogs.
  * <p>
- * Note: This is a copy of the official OpenJFX UI Sandbox Control revision rt-9e5ef340d95f.
+ * Note: This is a copy of the official OpenJFX ui Sandbox Control revision rt-9e5ef340d95f.
  * Changes are marked and described in the readme file.
  *
  * @author OpenJFX Authors
@@ -598,7 +598,7 @@ public class Dialogs {
         // Defines max dialog width.
         final static int DIALOG_WIDTH = 516;
 
-        // According to the UI spec, the width of the fxml message text in the upper
+        // According to the ui spec, the width of the fxml message text in the upper
         // panel should be 426 pixels.
         private static int MAIN_TEXT_WIDTH = 400;
 
@@ -858,7 +858,7 @@ public class Dialogs {
                 @Override
                 protected void layoutChildren() {
                     /*
-                    * According to UI guidelines, all buttons should have the same length.
+                    * According to ui guidelines, all buttons should have the same length.
                     * This function is to define the longest button in the array of buttons
                     * and set all buttons in array to be the length of the longest button.
                     */
@@ -1101,7 +1101,7 @@ public class Dialogs {
 
         /**
          * Creates a new instance of UITextArea with specified preferred width.
-         * This is used by the dialog UI template.
+         * This is used by the dialog ui template.
          */
         public UITextArea(double my_width) {
             preferred_width = my_width;

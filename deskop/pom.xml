@@ -32,7 +32,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>com.qxt.WinMainApp</mainClass>
+                            <mainClass>com.desktop.WinMainApp</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

@@ -46,7 +46,7 @@ public class UndecoratorSceneDemo extends Application {
         primaryStage.setTitle("Undecorator Scene Demo");
 
         String str = Undecorator.class.getResource("/ldh.fx.css/Undecorator.css").toExternalForm();
-        // The UI (Client Area) to display
+        // The ui (Client Area) to display
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/ClientArea.fxml"));
         fxmlLoader.setController(this);
         Region root = (Region) fxmlLoader.load();

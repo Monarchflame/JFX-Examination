@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 /**
  * 管理根Stage
- * @author qxt
+ * @author desktop
  */
 public class PrimaryStage {
 

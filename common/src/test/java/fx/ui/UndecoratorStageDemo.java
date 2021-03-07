@@ -41,7 +41,7 @@ public class UndecoratorStageDemo extends Application {
     public void start(final Stage stage) throws Exception {
         primaryStage = stage;
         primaryStage.setTitle("Undecorator Stage Demo");
-        // The UI (Client Area) to display
+        // The ui (Client Area) to display
         Region root = null;
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/ClientArea.fxml"));

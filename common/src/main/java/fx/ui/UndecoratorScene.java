@@ -50,7 +50,7 @@ public class UndecoratorScene extends Scene {
      * Basic constructor with built-in behavior
      *
      * @param stage The fxml stage
-     * @param root your UI to be displayed in the Stage
+     * @param root your ui to be displayed in the Stage
      */
     public UndecoratorScene(Stage stage, Region root) {
         this(stage, StageStyle.TRANSPARENT, root, DEFAULT_STAGEDECORATION);
@@ -61,7 +61,7 @@ public class UndecoratorScene extends Scene {
      *
      * @param stage The fxml stage
      * @param stageStyle could be StageStyle.UTILITY or StageStyle.TRANSPARENT
-     * @param root your UI to be displayed in the Stage
+     * @param root your ui to be displayed in the Stage
      * @param stageDecorationFxml Your own Stage decoration or null to use the
      * built-in one
      */
