@@ -4,7 +4,6 @@ import com.desktop.WinMainApp;
 import com.desktop.dao.*;
 import com.desktop.entity.*;
 import com.desktop.explorer.ui.MainForm;
-import com.desktop.invigilation.KeyboardHook;
 import com.desktop.page.FormContent;
 import com.desktop.ui.*;
 import com.desktop.util.*;
@@ -27,9 +26,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -139,7 +136,7 @@ public class MyExamController implements Initializable {
      * @param event
      */
     @FXML
-    private void enterExam(ActionEvent event) {
+    private void enterExam(ActionEvent event) throws Exception {
         ReadOnlyObjectProperty<Exam> property = tableView.getSelectionModel().selectedItemProperty();
         Exam exam = property.get();
         Date startTime = exam.getStartTime();
@@ -149,7 +146,12 @@ public class MyExamController implements Initializable {
         if (examStarted) {
             System.out.println(exam.getName() + " " + "开始");
             Constant.exam = exam;
-            enterExam();
+            String directoryPath = "F:\\" + Constant.student.getStudentNo() + "\\";
+            boolean result = FtpUtils.sshPull(directoryPath, exam.getTeacherId().toString(), exam.getName());
+            if (!result) {
+                log.info("未获取到考题");
+            }
+            enterExamDesktop();
         } else {
             AlertMaker.showSimpleAlert("提示", "考试未开始");
         }
@@ -174,7 +176,8 @@ public class MyExamController implements Initializable {
     /**
      * 进入考试界面
      */
-    private void enterExam() {
+    private void enterExamDesktop() {
+        // 方便调试暂且关闭禁用快捷键
 //        KeyboardHook keyboardHook = new KeyboardHook();
 //        Thread keyboardHookThread = new Thread(keyboardHook);
 //        keyboardHookThread.start();
