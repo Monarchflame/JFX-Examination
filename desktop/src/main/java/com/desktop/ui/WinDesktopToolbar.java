@@ -49,8 +49,6 @@ public class WinDesktopToolbar extends DesktopToolbar {
         this.getLeftPane().getChildren().add(0, windowButton);
 
 //        addButton(new Icons525View(), "browser-graphic", leftPane);
-        Button browser = addButton(new MaterialDesignIconView(), "browser-graphic", getLeftPane());
-        browser.setOnAction(e->addBrowserDialog());
         addMessageButton(new MaterialDesignIconView(), "message-graphic", getRightPane());
 //        addButton(new MaterialDesignIconView(), "message-graphic", rightPane);
         Label dayLabel = new Label();
@@ -97,31 +95,5 @@ public class WinDesktopToolbar extends DesktopToolbar {
             animation(n);
         });
         return messageButton;
-    }
-
-    /**
-     * 浏览器
-     */
-    private void addBrowserDialog() {
-        ToolbarButton toolbarButton = new ToolbarButton(new Button("百度搜索"));
-        LDialog ldhDialog = new LDialog(PrimaryStage.STAGE, "百度搜索", 1000d, 600d);
-//        ldhDialog.setModel(false);
-//        ldhDialog.setIsHide(true);
-        ldhDialog.getScene().getStylesheets().add("/component/LxDialog.css");
-        ldhDialog.getScene().getStylesheets().add("/component/LDialog.css");
-        WebView webView = new WebView();
-        ldhDialog.setContentPane(webView);
-        ldhDialog.show();
-        getContentPane().getChildren().add(toolbarButton);
-        ldhDialog.setOnCloseRequestHandler(e->getContentPane().getChildren().remove(toolbarButton));
-        toolbarButton.getButton().setOnAction(e->{
-            ldhDialog.show();
-        });
-        toolbarButton.getButton().addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, e->{
-            this.getContentPane().getChildren().remove(toolbarButton);
-            ldhDialog.close();
-            e.consume();
-        });
-        Platform.runLater(()->webView.getEngine().load("http://www.baidu.com"));
     }
 }

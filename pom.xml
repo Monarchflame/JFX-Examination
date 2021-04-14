@@ -20,7 +20,7 @@
 
     <modules>
         <module>common</module>
-        <module>deskop</module>
+        <module>desktop</module>
         <module>fxanimations</module>
     </modules>
 

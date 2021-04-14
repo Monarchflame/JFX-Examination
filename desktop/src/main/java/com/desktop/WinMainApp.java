@@ -42,15 +42,9 @@ public class WinMainApp extends Application {
 
         // 加载Windows图标
         Image image = new Image(WinMainApp.class.getResource("/images/win10.png").toExternalForm());
-        DesktopNodeFactory webViewNodeFactory = () -> {
-            WebView webView = new WebView();
-            webView.getEngine().load("http://www.baidu.com");
-            return webView;
-        };
 
         desktopPane = new DesktopPane();
         desktopPane.getChildren().add(new DesktopItem(RegionUtil.createLabel("CVS浏览器", new FontAwesomeIconView(), "cvs-graphic"), () -> PageUtil.load("/fxml/Cvs.fxml")));
-        desktopPane.getChildren().add(new DesktopItem(image, "百度搜索", webViewNodeFactory));
         desktopPane.getChildren().add(new DesktopItem(RegionUtil.createLabel("Form表单样式", new FontAwesomeIconView(), "form-graphic"), () -> new FormContent()));
         addAllButton(desktopPane);
 

@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.desktop.entity.SelectCourse">
     <constructor>
       <idArg column="id" javaType="java.lang.Long" jdbcType="BIGINT" />
-      <arg column="course_id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="course_no" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="student_id" javaType="java.lang.Long" jdbcType="BIGINT" />
     </constructor>
   </resultMap>
@@ -67,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, course_id, student_id
+    id, course_no, student_id
   </sql>
   <select id="selectByExample" parameterType="com.desktop.entity.SelectCourseExample" resultMap="BaseResultMap">
     select
@@ -100,9 +100,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.desktop.entity.SelectCourse">
-    insert into select_course (id, course_id, student_id
+    insert into select_course (id, course_no, student_id
       )
-    values (#{id,jdbcType=BIGINT}, #{courseId,jdbcType=BIGINT}, #{studentId,jdbcType=BIGINT}
+    values (#{id,jdbcType=BIGINT}, #{courseNo,jdbcType=VARCHAR}, #{studentId,jdbcType=BIGINT}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.desktop.entity.SelectCourse">
@@ -111,8 +111,8 @@
       <if test="id != null">
         id,
       </if>
-      <if test="courseId != null">
-        course_id,
+      <if test="courseNo != null">
+        course_no,
       </if>
       <if test="studentId != null">
         student_id,
@@ -122,8 +122,8 @@
       <if test="id != null">
         #{id,jdbcType=BIGINT},
       </if>
-      <if test="courseId != null">
-        #{courseId,jdbcType=BIGINT},
+      <if test="courseNo != null">
+        #{courseNo,jdbcType=VARCHAR},
       </if>
       <if test="studentId != null">
         #{studentId,jdbcType=BIGINT},
@@ -142,8 +142,8 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.courseId != null">
-        course_id = #{record.courseId,jdbcType=BIGINT},
+      <if test="record.courseNo != null">
+        course_no = #{record.courseNo,jdbcType=VARCHAR},
       </if>
       <if test="record.studentId != null">
         student_id = #{record.studentId,jdbcType=BIGINT},
@@ -156,7 +156,7 @@
   <update id="updateByExample" parameterType="map">
     update select_course
     set id = #{record.id,jdbcType=BIGINT},
-      course_id = #{record.courseId,jdbcType=BIGINT},
+      course_no = #{record.courseNo,jdbcType=VARCHAR},
       student_id = #{record.studentId,jdbcType=BIGINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -165,8 +165,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.desktop.entity.SelectCourse">
     update select_course
     <set>
-      <if test="courseId != null">
-        course_id = #{courseId,jdbcType=BIGINT},
+      <if test="courseNo != null">
+        course_no = #{courseNo,jdbcType=VARCHAR},
       </if>
       <if test="studentId != null">
         student_id = #{studentId,jdbcType=BIGINT},
@@ -176,7 +176,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.desktop.entity.SelectCourse">
     update select_course
-    set course_id = #{courseId,jdbcType=BIGINT},
+    set course_no = #{courseNo,jdbcType=VARCHAR},
       student_id = #{studentId,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>

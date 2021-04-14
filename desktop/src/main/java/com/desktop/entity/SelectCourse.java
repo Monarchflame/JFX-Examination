@@ -3,13 +3,13 @@ package com.desktop.entity;
 public class SelectCourse {
     private Long id;
 
-    private Long courseId;
+    private String courseNo;
 
     private Long studentId;
 
-    public SelectCourse(Long id, Long courseId, Long studentId) {
+    public SelectCourse(Long id, String courseNo, Long studentId) {
         this.id = id;
-        this.courseId = courseId;
+        this.courseNo = courseNo;
         this.studentId = studentId;
     }
 
@@ -25,12 +25,12 @@ public class SelectCourse {
         this.id = id;
     }
 
-    public Long getCourseId() {
-        return courseId;
+    public String getCourseNo() {
+        return courseNo;
     }
 
-    public void setCourseId(Long courseId) {
-        this.courseId = courseId;
+    public void setCourseNo(String courseNo) {
+        this.courseNo = courseNo == null ? null : courseNo.trim();
     }
 
     public Long getStudentId() {

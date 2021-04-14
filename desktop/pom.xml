@@ -10,7 +10,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <version>1.1</version>
-    <artifactId>deskop</artifactId>
+    <artifactId>desktop</artifactId>
     <packaging>jar</packaging>
 
     <properties>

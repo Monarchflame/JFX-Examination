@@ -1,11 +1,11 @@
 package com.desktop.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class Exam {
     private Long id;
 
-    private Long courseId;
+    private String courseNo;
 
     private Long teacherId;
 
@@ -13,15 +13,15 @@ public class Exam {
 
     private String name;
 
-    private Date startTime;
+    private LocalDateTime startTime;
 
-    private Date endTime;
+    private LocalDateTime endTime;
 
     private Short examTime;
 
-    public Exam(Long id, Long courseId, Long teacherId, Long softwareConfigId, String name, Date startTime, Date endTime, Short examTime) {
+    public Exam(Long id, String courseNo, Long teacherId, Long softwareConfigId, String name, LocalDateTime startTime, LocalDateTime endTime, Short examTime) {
         this.id = id;
-        this.courseId = courseId;
+        this.courseNo = courseNo;
         this.teacherId = teacherId;
         this.softwareConfigId = softwareConfigId;
         this.name = name;
@@ -42,12 +42,12 @@ public class Exam {
         this.id = id;
     }
 
-    public Long getCourseId() {
-        return courseId;
+    public String getCourseNo() {
+        return courseNo;
     }
 
-    public void setCourseId(Long courseId) {
-        this.courseId = courseId;
+    public void setCourseNo(String courseNo) {
+        this.courseNo = courseNo == null ? null : courseNo.trim();
     }
 
     public Long getTeacherId() {
@@ -74,19 +74,19 @@ public class Exam {
         this.name = name == null ? null : name.trim();
     }
 
-    public Date getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
 

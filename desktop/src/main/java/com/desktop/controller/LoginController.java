@@ -82,7 +82,6 @@ public class LoginController implements Initializable {
                 Constant.student = student;
                 ((Stage) userNameField.getScene().getWindow()).close();
                 openExamListStage();
-                connectToTeacher();
             } else {
                 alert.setContentText("请输入正确的密码！");
                 alert.showAndWait();
@@ -92,13 +91,5 @@ public class LoginController implements Initializable {
 
     private void openExamListStage() {
         MainApplication.showView(MyExamView.class);
-    }
-
-    /**
-     * 连接到教师端
-     */
-    private void connectToTeacher() {
-        Thread thread = new Thread(new MonitorClient());
-        thread.start();
     }
 }

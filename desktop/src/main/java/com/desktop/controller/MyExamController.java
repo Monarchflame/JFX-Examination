@@ -4,6 +4,8 @@ import com.desktop.WinMainApp;
 import com.desktop.dao.*;
 import com.desktop.entity.*;
 import com.desktop.explorer.ui.MainForm;
+import com.desktop.invigilation.KeyboardHook;
+import com.desktop.invigilation.monitor.MonitorClient;
 import com.desktop.page.FormContent;
 import com.desktop.ui.*;
 import com.desktop.util.*;
@@ -35,6 +37,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -59,9 +62,9 @@ public class MyExamController implements Initializable {
     @FXML
     private TableColumn<Exam, String> examNameCol;
     @FXML
-    private TableColumn<Exam, Date> startTimeCol;
+    private TableColumn<Exam, LocalDateTime> startTimeCol;
     @FXML
-    private TableColumn<Exam, Date> endTimeCol;
+    private TableColumn<Exam, LocalDateTime> endTimeCol;
     @FXML
     private TableColumn<Exam, String> examTimeCol;
 
@@ -113,20 +116,20 @@ public class MyExamController implements Initializable {
         List<SelectCourse> selectCourses = selectCourseMapper.selectByExample(selectCourseExample);
         // 查考试信息
         for (SelectCourse selectCourse : selectCourses) {
-            Long courseId = selectCourse.getCourseId();
+            String courseNo = selectCourse.getCourseNo();
             ExamExample examExample = new ExamExample();
-            examExample.or().andCourseIdEqualTo(courseId);
+            examExample.or().andCourseNoEqualTo(courseNo);
             List<Exam> exams = examMapper.selectByExample(examExample);
             // exams长度应为1
             for (Exam exam : exams) {
                 // 只把未结束的考试加进去
-                if (exam.getEndTime().after(new Date())) {
+                if (exam.getEndTime().isAfter(LocalDateTime.now())) {
                     list.add(exam);
                 }
             }
         }
-        formatDate(startTimeCol);
-        formatDate(endTimeCol);
+//        formatDate(startTimeCol);
+//        formatDate(endTimeCol);
         tableView.setItems(list);
     }
 
@@ -139,22 +142,38 @@ public class MyExamController implements Initializable {
     private void enterExam(ActionEvent event) throws Exception {
         ReadOnlyObjectProperty<Exam> property = tableView.getSelectionModel().selectedItemProperty();
         Exam exam = property.get();
-        Date startTime = exam.getStartTime();
+        if (exam == null) {
+            AlertMaker.showSimpleAlert("提醒", "请选择要进入的考试");
+            return;
+        }
+        LocalDateTime startTime = exam.getStartTime();
 
-        boolean examStarted = startTime.before(new Date());
-        // 打开考试界面
+        boolean examStarted = startTime.isBefore(LocalDateTime.now());
+
         if (examStarted) {
             System.out.println(exam.getName() + " " + "开始");
             Constant.exam = exam;
             String directoryPath = "F:\\" + Constant.student.getStudentNo() + "\\";
+            // 拉取考题
             boolean result = FtpUtils.sshPull(directoryPath, exam.getTeacherId().toString(), exam.getName());
             if (!result) {
                 log.info("未获取到考题");
             }
+            // 连接到教师端
+            connectToTeacher();
+            // 进入考试界面
             enterExamDesktop();
         } else {
             AlertMaker.showSimpleAlert("提示", "考试未开始");
         }
+    }
+
+    /**
+     * 连接到教师端
+     */
+    private void connectToTeacher() {
+        Thread thread = new Thread(new MonitorClient());
+        thread.start();
     }
 
     // 更新考试状态
@@ -178,9 +197,8 @@ public class MyExamController implements Initializable {
      */
     private void enterExamDesktop() {
         // 方便调试暂且关闭禁用快捷键
-//        KeyboardHook keyboardHook = new KeyboardHook();
-//        Thread keyboardHookThread = new Thread(keyboardHook);
-//        keyboardHookThread.start();
+        Thread keyboardHookThread = new Thread(new KeyboardHook());
+        keyboardHookThread.start();
 
         getStage().close();
         Stage stage = new Stage();
@@ -208,7 +226,7 @@ public class MyExamController implements Initializable {
         stage.setOnCloseRequest(e -> {
             PrimaryStage.closeAllNewStages();
             ThreadToolUtil.close();
-//            keyboardHookThread.stop();
+            keyboardHookThread.stop();
         });
     }
 
@@ -220,15 +238,9 @@ public class MyExamController implements Initializable {
     private DesktopPane initDesktopPane() {
         // 加载Windows图标
         Image image = new Image(WinMainApp.class.getResource("/images/win10.png").toExternalForm());
-        DesktopNodeFactory webViewNodeFactory = () -> {
-            WebView webView = new WebView();
-            webView.getEngine().load("http://www.baidu.com");
-            return webView;
-        };
 
         DesktopPane desktopPane = new DesktopPane();
         desktopPane.getChildren().add(new DesktopItem(RegionUtil.createLabel("CVS浏览器", new FontAwesomeIconView(), "cvs-graphic"), () -> PageUtil.load("/fxml/Cvs.fxml")));
-        desktopPane.getChildren().add(new DesktopItem(image, "百度搜索", webViewNodeFactory));
         desktopPane.getChildren().add(new DesktopItem(RegionUtil.createLabel("Form表单样式", new FontAwesomeIconView(), "form-graphic"), () -> new FormContent()));
         // 添加"答案文件夹"按钮
         Button folderButton = new Button();
@@ -278,12 +290,12 @@ public class MyExamController implements Initializable {
      * @param tableColumn
      * @param <T>
      */
-    public static <T> void formatDate(TableColumn<T, Date> tableColumn) {
-        tableColumn.setCellFactory(column -> new TableCell<T, Date>() {
+    public static <T> void formatDate(TableColumn<T, LocalDateTime> tableColumn) {
+        tableColumn.setCellFactory(column -> new TableCell<T, LocalDateTime>() {
             private final SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
 
             @Override
-            protected void updateItem(Date item, boolean empty) {
+            protected void updateItem(LocalDateTime item, boolean empty) {
                 super.updateItem(item, empty);
                 if (empty) {
                     setText(null);
