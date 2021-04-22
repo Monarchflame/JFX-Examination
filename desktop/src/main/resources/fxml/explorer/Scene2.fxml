@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="412.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.desktop.explorer.TableViewController">
+    <children>
+        <TableView fx:id="tableview" onMouseClicked="#handleTableMouseClicked" prefHeight="430.0" prefWidth="680.0">
+            <columns>
+                <TableColumn fx:id="image" minWidth="50.0" prefWidth="170.0" text="Icon" />
+                <TableColumn fx:id="name" prefWidth="170.0" text="Name" />
+                <TableColumn fx:id="size" prefWidth="170.0" text="Size" />
+                <TableColumn fx:id="date" prefWidth="170.0" text="Date Modified" />
+            </columns>
+            <contextMenu>
+                <ContextMenu>
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#rename" text="重命名" />
+                        <MenuItem mnemonicParsing="false" onAction="#delete" text="删除" />
+                    </items>
+                </ContextMenu>
+            </contextMenu>
+        </TableView>
+    </children>
+</Pane>

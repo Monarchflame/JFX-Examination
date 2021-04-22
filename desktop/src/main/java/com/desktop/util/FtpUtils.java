@@ -73,11 +73,12 @@ public class FtpUtils {
             try {
                 attrs = sftp.stat(remoteDirectoryPath);
             } catch (Exception e) {
-                e.printStackTrace();
+//                e.printStackTrace();
+                log.info("无文件夹：{}", rootPath + remoteDirectoryPath);
             }
             if (attrs == null) {
                 sftp.mkdir(remoteDirectoryPath);
-                log.info("创建子目录：{}", remoteDirectoryPath);
+                log.info("创建目录：{}", rootPath + remoteDirectoryPath);
             }
             // 进入服务器指定的文件夹
             sftp.cd(remoteDirectoryPath);

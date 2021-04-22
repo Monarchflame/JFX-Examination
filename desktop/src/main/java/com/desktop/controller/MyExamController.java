@@ -1,14 +1,17 @@
 package com.desktop.controller;
 
+import com.desktop.MainApplication;
 import com.desktop.WinMainApp;
 import com.desktop.dao.*;
 import com.desktop.entity.*;
-import com.desktop.explorer.ui.MainForm;
-import com.desktop.invigilation.KeyboardHook;
 import com.desktop.invigilation.monitor.MonitorClient;
 import com.desktop.page.FormContent;
 import com.desktop.ui.*;
-import com.desktop.util.*;
+import com.desktop.util.AlertMaker;
+import com.desktop.util.Constant;
+import com.desktop.util.FtpUtils;
+import com.desktop.util.ThreadToolUtil;
+import com.desktop.view.ExplorerView;
 import com.jfoenix.controls.JFXDecorator;
 import de.felixroske.jfxsupport.FXMLController;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -23,13 +26,15 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +44,6 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -197,8 +201,8 @@ public class MyExamController implements Initializable {
      */
     private void enterExamDesktop() {
         // 方便调试暂且关闭禁用快捷键
-        Thread keyboardHookThread = new Thread(new KeyboardHook());
-        keyboardHookThread.start();
+//        Thread keyboardHookThread = new Thread(new KeyboardHook());
+//        keyboardHookThread.start();
 
         getStage().close();
         Stage stage = new Stage();
@@ -226,7 +230,7 @@ public class MyExamController implements Initializable {
         stage.setOnCloseRequest(e -> {
             PrimaryStage.closeAllNewStages();
             ThreadToolUtil.close();
-            keyboardHookThread.stop();
+//            keyboardHookThread.stop();
         });
     }
 
@@ -240,6 +244,7 @@ public class MyExamController implements Initializable {
         Image image = new Image(WinMainApp.class.getResource("/images/win10.png").toExternalForm());
 
         DesktopPane desktopPane = new DesktopPane();
+
         desktopPane.getChildren().add(new DesktopItem(RegionUtil.createLabel("CVS浏览器", new FontAwesomeIconView(), "cvs-graphic"), () -> PageUtil.load("/fxml/Cvs.fxml")));
         desktopPane.getChildren().add(new DesktopItem(RegionUtil.createLabel("Form表单样式", new FontAwesomeIconView(), "form-graphic"), () -> new FormContent()));
         // 添加"答案文件夹"按钮
@@ -247,14 +252,16 @@ public class MyExamController implements Initializable {
         folderButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                new MainForm();
+//                new MainForm();
+                MainApplication.showView(ExplorerView.class);
             }
         });
-        desktopPane.getChildren().add(new DesktopItem(RegionUtil.createLabel("答案文件夹", new FontAwesomeIconView(), "plan-pane-graphic"), () -> folderButton));
-        // 添加软件白名单中的软件
-        addSoftware(desktopPane);
+        desktopPane.getChildren().add(new DesktopItem(RegionUtil.createLabel("答案文件夹", new FontAwesomeIconView(), "plan-pane-graphic"), () -> PageUtil.load("/fxml/explorer/Scene.fxml")));
         // 添加退出按钮
         desktopPane.getChildren().add(new DesktopItem(RegionUtil.createLabel("退出考试", new FontAwesomeIconView(), "plan-pane-graphic"), () -> new ExitButton("退出考试")));
+        // 添加软件白名单中的软件
+        addSoftware(desktopPane);
+
         return desktopPane;
     }
 
