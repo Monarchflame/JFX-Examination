@@ -1,5 +1,6 @@
 package com.desktop.invigilation.monitor;
 
+import com.desktop.entity.Student;
 import com.desktop.util.Constant;
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,7 +33,11 @@ public class MonitorClient implements Runnable {
     public Robot robot;
     public boolean isLive = true;
 
-    public MonitorClient() {
+    MonitorClient monitorClient;
+    Student student;
+
+    public MonitorClient(Student student) {
+        this.student = student;
         try {
             robot = new Robot();
         } catch (AWTException e) {
@@ -113,10 +118,10 @@ public class MonitorClient implements Runnable {
     public void run() {
         boolean connectResult = false;
         while (!connectResult) {
-            MonitorClient monitorClient = Constant.student.getMonitorClient();
+            MonitorClient monitorClient = student.getMonitorClient();
             if (monitorClient == null) {
-                monitorClient = new MonitorClient();
-                Constant.student.setMonitorClient(monitorClient);
+                monitorClient = new MonitorClient(student);
+                student.setMonitorClient(monitorClient);
             }
             // 教师端IP todo:这里先写死
             InetAddress teacherHost = null;
@@ -151,7 +156,7 @@ public class MonitorClient implements Runnable {
     }
 
     public static void main(String[] args) throws UnknownHostException {
-        Thread thread = new Thread(new MonitorClient());
+        Thread thread = new Thread(new MonitorClient(new Student()));
         thread.start();
     }
 }

@@ -109,7 +109,7 @@ public class MyExamController implements Initializable {
     private void loadData() {
         list.clear();
 
-        Student student = Constant.student;
+        Student student = Constant.getStudent();
         if (student == null) {
             AlertMaker.showSimpleAlert("错误", "考生未登录");
             return;
@@ -156,8 +156,8 @@ public class MyExamController implements Initializable {
 
         if (examStarted) {
             System.out.println(exam.getName() + " " + "开始");
-            Constant.exam = exam;
-            String directoryPath = "F:\\" + Constant.student.getStudentNo() + "\\";
+            Constant.setExam(exam);
+            String directoryPath = "F:\\" + Constant.getStudent().getStudentNo() + "\\";
             // 拉取考题
             boolean result = FtpUtils.sshPull(directoryPath, exam.getTeacherId().toString(), exam.getName());
             if (!result) {
@@ -176,7 +176,7 @@ public class MyExamController implements Initializable {
      * 连接到教师端
      */
     private void connectToTeacher() {
-        Thread thread = new Thread(new MonitorClient());
+        Thread thread = new Thread(new MonitorClient(Constant.getStudent()));
         thread.start();
     }
 
@@ -273,7 +273,7 @@ public class MyExamController implements Initializable {
     private void addSoftware(DesktopPane desktopPane) {
         List<Software> softwareList = new ArrayList<>();
 
-        Exam exam = Constant.exam;
+        Exam exam = Constant.getExam();
         Long softwareConfigId = exam.getSoftwareConfigId();
 
         SelectSoftwareExample selectSoftwareExample = new SelectSoftwareExample();

@@ -79,7 +79,7 @@ public class LoginController implements Initializable {
             Student student = students.get(0);
             // 登录
             if (student != null) {
-                Constant.student = student;
+                Constant.setStudent(student);
                 ((Stage) userNameField.getScene().getWindow()).close();
                 openExamListStage();
             } else {

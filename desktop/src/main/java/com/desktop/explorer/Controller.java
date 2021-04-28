@@ -45,7 +45,7 @@ public class Controller implements Initializable {
         count = 0;
 
 //        FileExplorerFx.CurrDirFile = new File("./");
-        FileExplorerFx.CurrDirFile = new File("F://" + Constant.student.getStudentNo());
+        FileExplorerFx.CurrDirFile = new File("F://" + Constant.getStudent().getStudentNo());
         FileExplorerFx.CurrDirStr = FileExplorerFx.CurrDirFile.getAbsolutePath();
         FileExplorerFx.lbl = label;
         label.setText(FileExplorerFx.CurrDirStr);
@@ -141,11 +141,11 @@ public class Controller implements Initializable {
     public void uploadAnswer() {
         try {
             // 压缩
-            File zipFile = new File("F://" + Constant.student.getStudentNo() + ".zip");
+            File zipFile = new File("F://" + Constant.getStudent().getStudentNo() + ".zip");
             FileOutputStream fileOutputStream = new FileOutputStream(zipFile);
-            ZipUtils.toZip("F://" + Constant.student.getStudentNo(), fileOutputStream, true);
+            ZipUtils.toZip("F://" + Constant.getStudent().getStudentNo(), fileOutputStream, true);
             // 上传
-            FtpUtils.sshPut(zipFile, Constant.exam.getTeacherId().toString() + "/" + Constant.exam.getName(), zipFile.getName());
+            FtpUtils.sshPut(zipFile, Constant.getExam().getTeacherId().toString() + "/" + Constant.getExam().getName(), zipFile.getName());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (Exception e) {

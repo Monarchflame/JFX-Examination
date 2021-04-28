@@ -13,9 +13,26 @@ public class Constant {
     /**
      * 登录的学生
      */
-    public static Student student;
+    public static ThreadLocal<Student> student = new ThreadLocal<>();
+
+    public static void setStudent(Student s) {
+        student.set(s);
+    }
+
+    public static Student getStudent() {
+        return student.get();
+    }
+
     /**
      * 正在进行的考试
      */
-    public static Exam exam;
+    public static ThreadLocal<Exam> exam = new ThreadLocal<>();
+
+    public static void setExam(Exam s) {
+        exam.set(s);
+    }
+
+    public static Exam getExam() {
+        return exam.get();
+    }
 }
